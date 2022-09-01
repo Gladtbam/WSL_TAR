@@ -24,5 +24,5 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          path: ${GITHUB_WORKSPACE}
+          path: ${{GITHUB_WORKSPACE}}
 
