@@ -19,11 +19,10 @@ jobs:
         
       - name: Docker Export
         run: |
-          cd ${GITHUB_WORKSPACE}
           docker export -o redhat.tar redhat
         
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.0
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
         with:
           path: ${GITHUB_WORKSPACE}
 
