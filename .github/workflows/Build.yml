@@ -1,0 +1,27 @@
+name: WSL
+
+on:
+  push:
+    branches: [ "main" ]
+    
+  workflow_dispatch:
+
+jobs:
+  RedHat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker Pull
+        run: docker pull redhat/ubi8:latest
+
+      - name: Docker Run
+        run: docker run --name redhat redhat/ubi8:latest
+        
+      - name: Docker Export
+        run: docker export -o redhat.tar redhat
+        
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.0
+        with:
+          path: redhat.tar
+
