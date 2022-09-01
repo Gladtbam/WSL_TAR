@@ -18,7 +18,9 @@ jobs:
         run: docker run --name redhat redhat/ubi8:latest
         
       - name: Docker Export
-        run: docker export -o redhat.tar redhat
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          docker export -o redhat.tar redhat
         
       - name: Download a Build Artifact
         uses: actions/download-artifact@v3.0.0
