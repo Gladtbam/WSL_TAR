@@ -4,7 +4,7 @@
 
 # 使用方式
 
-[Github Relese](https://github.com/Gladtbam/WSL_Image/releases)下载需要的tar文件，在PowerShell下输入`wsl--import <Distro> <InstallLocation> <FileName>`
+[Github Relese](https://github.com/Gladtbam/WSL_TAR/releases)下载需要的tar文件，在PowerShell下输入`wsl--import <Distro> <InstallLocation> <FileName>`
 
 例：
 ```
