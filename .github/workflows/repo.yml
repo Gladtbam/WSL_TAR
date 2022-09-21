@@ -1,0 +1,48 @@
+name: repo
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 1 * *'
+
+jobs:
+  RedHat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker Pull
+        run: docker pull redhat/ubi8:latest
+
+      - name: Docker Run Register
+        run: |
+          docker run -it --name redhat redhat/ubi8:latest
+          subscription-manager register --org=${{ env.ORG }} --activationkey=${{ env.ACTIVATIONKEY }}
+          dnf config-manager --disable=ubi8*
+          dnf install yum-utils openssl -y
+               
+      - name: Sync Repos
+        run: |
+          mkdir /repos
+          dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+          subscription-manager repos --enable "codeready-builder-for-rhel-8-$(arch)-rpms"
+          rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+          dnf install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+          reposync -n -p /repos --download-metadata
+          cp /etc/redhat-release /repos
+          
+      - name: Organize files
+        run: |
+          cd /repos
+          tar -czvf - * | openssl pbkdf2 -salt -k ${{ env.PASSWORD }} -out /repos.tar.gz
+          #openssl pbkdf2 -d -k ${{ env.PASSOWRD }} -salt -in /repos.tar.gz | tar xzf -
+          subscription-manager unregister
+          exit #退出 Docker 容器
+          docker cp redhat:/repos.tar.gz .
+        
+      - name: Upload files to a GitHub release
+        uses: svenstaro/upload-release-action@2.3.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN}}
+          file: repos.tar.gz
+          tag: redhat
+          overwrite: true
