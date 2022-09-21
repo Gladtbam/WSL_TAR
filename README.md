@@ -14,7 +14,7 @@ WSL名为RedHat。则：
 
 wsl --import RedHat D:\WSL redhat.tar
 ```
-
-
-修复 Terminal 显示 `Failed to set locale, defaulting to C.UTF-8`
-`dnf install glibc-all-langpacks`
+  
+  
+>修复 Terminal 显示 `Failed to set locale, defaulting to C.UTF-8`  
+>> `dnf install glibc-all-langpacks`
