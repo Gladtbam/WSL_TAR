@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Initial Environment
+        run: |
+          sudo apt remove *CLI *android* ruby pypy nodejs
+          sudo apt autoremove
+          sudo rm -rf /usr/share/dotnet/ /usr/share/google-cloud-sdk/ /usr/share/php* /usr/lib/google-cloud-sdk/ /opt/ /usr/local/lib/android  /usr/local/bin/*
+          sudo apt-get --purge remove
       - name: Checkout
         uses: actions/checkout@v3.0.0
 
