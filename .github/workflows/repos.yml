@@ -1,4 +1,4 @@
-name: repo
+name: repos
 
 on:
   workflow_dispatch:
