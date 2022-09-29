@@ -15,12 +15,9 @@ jobs:
 
       - name: Initial Docker File
         run: |
-          export ORG=${{ secrets.ORG }}
-          export ACTIVATIONKEY=${{ secrets.ACTIVATIONKEY }}
-          export PASSOWRD=${{ secrets.PASSOWRD }}
-          sed -i '5s/RE_ORG/'$ORG'/g' Dockerfile
-          sed -i '5s/RE_ACTIVATIONKEY/'$ACTIVATIONKEY'/g' Dockerfile
-          sed -i '16s/RE_PASSWORD/'$PASSOWRD'/g' Dockerfile
+          sed -i '5s/RE_ORG/${{ secrets.ORG }}/g' Dockerfile
+          sed -i '5s/RE_ACTIVATIONKEY/${{ secrets.ACTIVATIONKEY }}/g' Dockerfile
+          sed -i '16s/RE_PASSWORD/${{ secrets.PASSOWRD }}/g' Dockerfile
 
       - name: Build Docker
         run: |
