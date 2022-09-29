@@ -3,7 +3,7 @@ FROM redhat/ubi8
 WORKDIR /repos
 
 RUN subscription-manager register --org=RE_ORG --activationkey=RE_ACTIVATIONKEY \
-#    && dnf config-manager --set-disable=ubi* \
+    && dnf config-manager --set-disable ubi* \
     && dnf update -y \
     && dnf install yum-utils openssl -y \
     && dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y \
