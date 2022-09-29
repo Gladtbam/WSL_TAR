@@ -15,9 +15,9 @@ jobs:
 
       - name: Initial Docker File
         run: |
-          sed -i '5s/RE_ORG/${{ env.ORG }}/g' Dockerfile
-          sed -i '5s/RE_ACTIVATIONKEY/${{ env.ACTIVATIONKEY }}/g' Dockerfile
-          sed -i '16s/RE_PASSWORD/${{ env.PASSOWRD }}/g' Dockerfile
+          sed -i '5s/RE_ORG/'${{ env.ORG }}'/g' Dockerfile
+          sed -i '5s/RE_ACTIVATIONKEY/'${{ env.ACTIVATIONKEY }}'/g' Dockerfile
+          sed -i '16s/RE_PASSWORD/'${{ env.PASSOWRD }}'/g' Dockerfile
 
       - name: Build Docker
         run: |
