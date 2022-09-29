@@ -10,7 +10,7 @@ RUN subscription-manager register --org=RE_ORG --activationkey=RE_ACTIVATIONKEY 
     && subscription-manager repos --enable "codeready-builder-for-rhel-8-$(arch)-rpms" \
     && rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org \
     && dnf install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm -y \
-    && dnf update -y
+    && dnf update -y \
     && reposync -n -p /repos --download-metadata \
     && cp /etc/redhat-release /repos \
     && cp -r /etc/pki/rpm-gpg/ /repos \
