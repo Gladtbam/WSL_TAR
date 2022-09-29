@@ -1,0 +1,37 @@
+name: repo
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 1 * *'
+
+jobs:
+  RedHat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+
+      - name: Initial Docker File
+        run: |
+          sed -i '5s/RE_ORG/${{ env.ORG }}/g' Dockerfile
+          sed -i '5s/RE_ACTIVATIONKEY/${{ env.ACTIVATIONKEY }}/g' Dockerfile
+          sed -i '16s/RE_PASSWORD/${{ env.PASSOWRD }}/g' Dockerfile
+
+      - name: Build Docker
+        run: |
+          docker build -f Dockerfile -t redhat .
+          docker run -d --name redhat redhat
+          
+      - name: Organize files
+        run: |
+          docker cp redhat:/repos.tar.gz .
+        
+      - name: Upload files to a GitHub release
+        uses: svenstaro/upload-release-action@2.3.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN}}
+          file: repos.tar.gz
+          tag: redhat
+          overwrite: true
