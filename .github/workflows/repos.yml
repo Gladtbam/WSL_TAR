@@ -1,4 +1,4 @@
-name: repos
+name: repo
 
 on:
   workflow_dispatch:
@@ -15,9 +15,12 @@ jobs:
 
       - name: Initial Docker File
         run: |
-          sed -i '5s/RE_ORG/'${{ env.ORG }}'/g' Dockerfile
-          sed -i '5s/RE_ACTIVATIONKEY/'${{ env.ACTIVATIONKEY }}'/g' Dockerfile
-          sed -i '16s/RE_PASSWORD/'${{ env.PASSOWRD }}'/g' Dockerfile
+          export ORG=${{ env.ORG }}
+          export ACTIVATIONKEY=${{ env.ACTIVATIONKEY }}
+          export PASSOWRD=${{ env.PASSOWRD }}
+          sed -i '5s/RE_ORG/'$ORG'/g' Dockerfile
+          sed -i '5s/RE_ACTIVATIONKEY/'$ACTIVATIONKEY'/g' Dockerfile
+          sed -i '16s/RE_PASSWORD/'$PASSOWRD'/g' Dockerfile
 
       - name: Build Docker
         run: |
