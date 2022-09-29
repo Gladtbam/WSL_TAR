@@ -12,11 +12,12 @@ jobs:
     steps:
       - name: Initial Environment
         run: |
-          sudo apt remove *CLI *android* ruby pypy nodejs
+          docker rmi $(docker images -q)
+          sudo apt remove --purge apache* mono* nginx* powershell go* nodejs* pypy* python* ruby* sqlcmd* mysql* postgresql* *sqlite* mongodb* dotnet* aspnetcore*
           sudo apt autoremove
-          sudo rm -rf /usr/share/dotnet/ /usr/share/google-cloud-sdk/ /usr/share/php* /usr/lib/google-cloud-sdk/ /opt/ /usr/local/lib/android  /usr/local/bin/*
-          sudo apt-get --purge remove
-          sudo apt-get install docker* -y
+          sudo rm -rf /usr/local/lib/android/ /etc/apache2/ /etc/default/mono-xsp4 /etc/nginx/ /opt/hostedtoolcache/ /usr/local/share/chrom* /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/share/java/selenium-server.jar /usr/local/share/powershell/ /usr/local/share/vcpkg /usr/share/miniconda /home/linuxbrew
+          sudo rm -rf $JAVA_HOME_8_X64 $JAVA_HOME_17_X64 $GRAALVM_11_ROOT
+          sudo rm -rf /usr/share/dotnet/ /usr/share/php* /opt/az
       - name: Checkout
         uses: actions/checkout@v3.0.0
 
