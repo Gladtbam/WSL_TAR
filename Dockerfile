@@ -14,5 +14,5 @@ RUN subscription-manager register --org=RE_ORG --activationkey=RE_ACTIVATIONKEY 
     && reposync -n -p /repos --download-metadata \
     && cp /etc/redhat-release /repos \
     && cp -r /etc/pki/rpm-gpg/ /repos \
-    && tar -czvf - * | openssl pbkdf2 -salt -k RE_PASSWORD -out /repos.tar.gz \
+    && tar -czvf - * | openssl des3 -salt -k RE_PASSWORD -out /repos.tar.gz \
     && subscription-manager unregister
