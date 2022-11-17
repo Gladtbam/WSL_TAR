@@ -34,7 +34,7 @@ jobs:
           
       - name: Organize files
         run: |
-          docker cp redhat:/repos.tar.gz .
+          docker mv redhat:/repos.tar.gz .
         
       - name: Upload files to a GitHub release
         uses: svenstaro/upload-release-action@2.3.0
